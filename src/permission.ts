@@ -7,6 +7,7 @@ import { UserModule } from '@/store/modules/user'
 import { PermissionModule } from '@/store/modules/permission'
 import i18n from '@/lang' // Internationalization
 import settings from './settings'
+import store from './store/index';
 
 NProgress.configure({ showSpinner: false })
 
@@ -21,17 +22,19 @@ const getPageTitle = (key: string) => {
   return `${settings.title}`
 }
 
-router.beforeEach(async(to: Route, _: Route, next: any) => {
+router.beforeEach(async (to: Route, _: Route, next: any) => {
   // Start progress bar
   NProgress.start()
 
   // Determine whether the user has logged in
-  if (UserModule.token) {
+  if (store.state.auth.User.UID) {
     if (to.path === '/login') {
       // If is logged in, redirect to the home page
       next({ path: '/' })
       NProgress.done()
     } else {
+      next()
+      return;
       // Check whether the user has obtained his permission roles
       if (UserModule.roles.length === 0) {
         try {
