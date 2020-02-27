@@ -15,7 +15,7 @@
     "test:unit": "jest --clearCache && vue-cli-service test:unit"
   },
   "dependencies": {
-    "@ctsy/api-sdk": "^2.0.57",
+    "@ctsy/api-sdk": "^2.0.58",
     "@ctsy/hook": "*",
     "@ctsy/vue-help": "^1.0.2",
     "@ctsy/vuex": "^2.0.1",
