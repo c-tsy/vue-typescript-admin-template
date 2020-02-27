@@ -10,6 +10,11 @@ export default class auth extends VuexModule {
     protected set_user(user: any) {
         this.User = user;
         hook.emit('loginsuccess', HookWhen.After, this, user);
+        store.commit('SET_ROLES', ['admin', ...user.RIDs])
+        store.commit('SET_NAME', user.Name)
+        store.commit('SET_AVATAR', user.Nick)
+        store.commit('SET_INTRODUCTION', user.Nick)
+        store.commit('SET_EMAIL', '')
     }
     @Action({ rawError: true })
     async login(data: { username: string, password: string }) {
@@ -20,7 +25,7 @@ export default class auth extends VuexModule {
         }
         return this.User;
     }
-    @Action
+    @Action({ rawError: true })
     async relogin() {
         let rs = await User.AuthApi.relogin();
         if (rs.UID && rs.UID > 0) {
@@ -29,7 +34,7 @@ export default class auth extends VuexModule {
         }
         return this.User;
     }
-    @Action
+    @Action({ rawError: true })
     async logout() {
         let rs = await User.AuthApi.logout();
         this.context.commit('set_user', { UID: 0 });

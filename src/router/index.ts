@@ -144,6 +144,28 @@ export const constantRoutes: RouteConfig[] = [
 */
 export const asyncRoutes: RouteConfig[] = [
   {
+    path: '/admin',
+    component: Layout,
+    name: '系统管理',
+    meta: {
+      title: '系统管理',
+      icon: 'lock',
+      roles: ['admin'],
+      alwaysShow: true // will always show the root menu
+    },
+    children: [
+      {
+        name: '用户账户',
+        path: 'users',
+        component: () => import('@/tsy/views/admin/user/list.vue'),
+        meta: {
+          title: '用户账户管理',
+          roles: ['admin'],
+        }
+      }
+    ]
+  },
+  {
     path: '/permission',
     component: Layout,
     redirect: '/permission/directive',

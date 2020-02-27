@@ -33,13 +33,13 @@ router.beforeEach(async (to: Route, _: Route, next: any) => {
       next({ path: '/' })
       NProgress.done()
     } else {
-      next()
-      return;
+      // debugger
       // Check whether the user has obtained his permission roles
-      if (UserModule.roles.length === 0) {
+      // debugger
+      if (PermissionModule.dynamicRoutes.length === 0) {
         try {
           // Note: roles must be a object array! such as: ['admin'] or ['developer', 'editor']
-          await UserModule.GetUserInfo()
+          store.dispatch('relogin')
           const roles = UserModule.roles
           // Generate accessible routes map based on role
           PermissionModule.GenerateRoutes(roles)
@@ -50,7 +50,7 @@ router.beforeEach(async (to: Route, _: Route, next: any) => {
           next({ ...to, replace: true })
         } catch (err) {
           // Remove token and redirect to login page
-          UserModule.ResetToken()
+          // UserModule.ResetToken()
           Message.error(err || 'Has Error')
           next(`/login?redirect=${to.path}`)
           NProgress.done()

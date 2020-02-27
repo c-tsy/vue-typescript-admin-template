@@ -1,12 +1,13 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import auth from './tsy/auth'
 import { IAppState } from './modules/app'
 import { IUserState } from './modules/user'
 import { ITagsViewState } from './modules/tags-view'
 import { IErrorLogState } from './modules/error-log'
 import { IPermissionState } from './modules/permission'
 import { ISettingsState } from './modules/settings'
+import auth from './tsy/auth'
+import users from './tsy/common/users'
 declare let window: any;
 Vue.use(Vuex)
 
@@ -23,7 +24,7 @@ export interface IRootState {
 // Declare empty store first, dynamically register all modules later.
 const store = new Vuex.Store<IRootState>({
   modules: {
-    auth
+    auth, users
   }
 })
 export default store;

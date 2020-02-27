@@ -12,10 +12,10 @@ interface ISettings {
 
 // You can customize below settings :)
 const settings: ISettings = {
-  title: 'Vue Typescript Admin',
-  showSettings: true,
+  title: '碳素云统一应用平台',
+  showSettings: false,
   showTagsView: true,
-  fixedHeader: false,
+  fixedHeader: true,
   showSidebarLogo: false,
   errorLog: ['production'],
   sidebarTextTheme: true,
