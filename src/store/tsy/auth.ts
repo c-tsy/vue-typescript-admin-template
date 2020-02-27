@@ -14,9 +14,8 @@ export default class auth extends VuexModule {
     @Action({ rawError: true })
     async login(data: { username: string, password: string }) {
         let rs = await User.AuthApi.login(data.username, data.password);
-        debugger
         if (rs.UID && rs.UID > 0) {
-            this.set_user(rs);
+            this.context.commit('set_user', rs);
             return rs;
         }
         return this.User;
@@ -25,7 +24,7 @@ export default class auth extends VuexModule {
     async relogin() {
         let rs = await User.AuthApi.relogin();
         if (rs.UID && rs.UID > 0) {
-            this.set_user(rs);
+            this.context.commit('set_user', rs);
             return rs;
         }
         return this.User;
@@ -33,7 +32,7 @@ export default class auth extends VuexModule {
     @Action
     async logout() {
         let rs = await User.AuthApi.logout();
-        this.set_user({ UID: 0, Name: '' })
+        this.context.commit('set_user', { UID: 0 });
         return this.User;
     }
 }
